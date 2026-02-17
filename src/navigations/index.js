@@ -5,7 +5,6 @@ import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import Login from '../screens/auth/Login';
 
-// Null
 // utils
 import { NavigationContainer } from '@react-navigation/native';
 import { ROUTES } from '../utils';
