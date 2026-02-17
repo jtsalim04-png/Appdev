@@ -84,6 +84,13 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        externalNativeBuild {
+            cmake {
+                // ensure native modules link against libc++ and enable exceptions/RTTI
+                arguments "-DANDROID_STL=c++_shared", "-DANDROID_CPP_FEATURES=exceptions;rtti"
+            }
+        }
     }
     signingConfigs {
         debug {
@@ -103,6 +110,13 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    packagingOptions {
+        jniLibs {
+            // make sure libc++_shared is included in the final APK
+            pickFirst '**/libc++_shared.so'
         }
     }
 }
