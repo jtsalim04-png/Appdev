@@ -11,6 +11,4 @@ const App = () => {
   );
 };
 
-// Null
-
 export default App;
