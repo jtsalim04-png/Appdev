@@ -23,7 +23,7 @@ const Register = () => {
             Alert.alert('Terms', 'You must accept terms and conditions to register');
             return;
         }
-
+        //Null
         Alert.alert('Success', 'Registration complete');
         navigation.navigate(ROUTES.LOGIN);
     };
