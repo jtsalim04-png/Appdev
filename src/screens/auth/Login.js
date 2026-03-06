@@ -1,17 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Image, Alert, Text, TouchableOpacity, View } from 'react-native';
-
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+
 import CustomButton from '../../components/CustomButton';
 import CustomTextInput from '../../components/CustomTextInput';
 import { IMG, ROUTES } from '../../utils';
-
+import { authLogin } from '../../app/actions';
 
 const Login = () => {
-    const [emailAdd, setEmailAdd] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
+
+    useEffect(() => {
+        if (!auth.isLoading && auth.isError && auth.error) {
+            Alert.alert('Login failed', auth.error);
+        }
+    }, [auth.isLoading, auth.isError, auth.error]);
 
     return (
         <View
@@ -22,18 +31,18 @@ const Login = () => {
             justifyContent: 'center',
         }}
         >
-
-            <Image
+        <Image
             source={IMG.LOGO}
             style={{ width: 240, height: 80, marginBottom: 40 }}
             resizeMode="contain"
-            />
+        />
 
         <View style={{ width: '100%' }}>
             <CustomTextInput
-            label={'Email Address'}
-            placeholder={'Enter Email Address'}
-            value={val => setEmailAdd(val)}
+            label={'Username'}
+            placeholder={'Enter Username'}
+            value={username}
+            onChangeText={val => setUsername(val)}
             containerStyle={{
                 padding: 5,
             }}
@@ -47,7 +56,8 @@ const Login = () => {
             <CustomTextInput
             label={'Password'}
             placeholder={'Enter Password'}
-            value={val => setPassword(val)}
+            value={password}
+            onChangeText={val => setPassword(val)}
             containerStyle={{
                 padding: 5,
             }}
@@ -55,6 +65,7 @@ const Login = () => {
                 borderRadius: 10,
                 color: 'black',
                 marginLeft: 10,
+                fontWeight: 'bold',
             }}
             />
         </View>
@@ -72,14 +83,21 @@ const Login = () => {
             fontWeight: 'bold',
             }}
             onPress={() => {
-            if (emailAdd === '' || password === '') {
+            if (username === '' || password === '') {
                 Alert.alert(
                 'Invalid Credentials',
-                'Please enter valid email address and password',
+                'Please enter valid userame and password',
                 );
 
                 return;
             }
+
+            dispatch(
+                authLogin({
+                username,
+                password,
+                }),
+            );
             }}
         />
 
@@ -102,3 +120,4 @@ const Login = () => {
 };
 
 export default Login;
+
