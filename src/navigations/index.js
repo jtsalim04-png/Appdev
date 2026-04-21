@@ -7,6 +7,7 @@ import AuthNav from './AuthNav';
 import MainNav from './MainNav';
 
 export default () => {
+  console.log('Navigation component rendering');
   const isDarkMode = useColorScheme() === 'dark';
   const auth = useSelector(state => state.auth);
   const isLoggedIn = !!auth?.data;

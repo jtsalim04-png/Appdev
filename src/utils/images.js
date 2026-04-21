@@ -1,4 +1,4 @@
 export default {
-  LOGO: require('../../asset/img/logomain.png'),
-  LOGO2: 'https://i.ytimg.com/vi/gmkp0W-sEao/maxresdefault.jpg'
+  LOGO: require('../logo/logo1.png'),
+  LOGO2: require('../logo/logo2.png')
 };
