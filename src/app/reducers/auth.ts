@@ -1,13 +1,26 @@
-import { USER_LOGIN_REQUEST, USER_LOGIN_COMPLETE, USER_LOGIN_ERROR, RESET_USER_LOGIN } from "../actions";
+import { USER_LOGIN_REQUEST, USER_LOGIN_COMPLETE, USER_LOGIN_ERROR, RESET_USER_LOGIN } from '../actions';
 
-const INITIALSTATE = {
+type AuthState = {
+  data: Record<string, unknown> | null;
+  isLoading: boolean;
+  isError: boolean;
+  error: string | null;
+};
+
+type AuthAction = {
+  type: string;
+  payload?: Record<string, unknown>;
+  error?: string;
+};
+
+const INITIALSTATE: AuthState = {
   data: null,
   isLoading: false,
   isError: false,
   error: null,
 };
 
-export default function reducer(state = INITIALSTATE, action) {
+export default function reducer(state: AuthState = INITIALSTATE, action: AuthAction): AuthState {
   console.log(action.type);
   switch (action.type) {
     case USER_LOGIN_REQUEST:

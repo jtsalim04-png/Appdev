@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux';
 import AuthNav from './AuthNav';
 import MainNav from './MainNav';
 
-export default () => {
+const AppNavigation = () => {
   console.log('Navigation component rendering');
   const isDarkMode = useColorScheme() === 'dark';
-  const auth = useSelector(state => state.auth);
+  const auth = useSelector((state: any) => state.auth);
   const isLoggedIn = !!auth?.data;
 
   useEffect(() => {
@@ -24,3 +24,5 @@ export default () => {
     </NavigationContainer>
   );
 };
+
+export default AppNavigation;
